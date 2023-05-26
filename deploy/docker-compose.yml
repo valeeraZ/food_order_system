@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile
+      target: prod
+    image: food_order_system:${FOOD_ORDER_SYSTEM_VERSION:-latest}
+    restart: always
+    env_file:
+    - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      rmq:
+        condition: service_healthy
+    environment:
+      FOOD_ORDER_SYSTEM_HOST: 0.0.0.0
+      FOOD_ORDER_SYSTEM_DB_HOST: food_order_system-db
+      FOOD_ORDER_SYSTEM_DB_PORT: 5432
+      FOOD_ORDER_SYSTEM_DB_USER: food_order_system
+      FOOD_ORDER_SYSTEM_DB_PASS: food_order_system
+      FOOD_ORDER_SYSTEM_DB_BASE: food_order_system
+      FOOD_ORDER_SYSTEM_RABBIT_HOST: food_order_system-rmq
+
+  db:
+    image: postgres:13.8-bullseye
+    hostname: food_order_system-db
+    environment:
+      POSTGRES_PASSWORD: "food_order_system"
+      POSTGRES_USER: "food_order_system"
+      POSTGRES_DB: "food_order_system"
+    volumes:
+    - food_order_system-db-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: pg_isready -U food_order_system
+      interval: 2s
+      timeout: 3s
+      retries: 40
+
+  rmq:
+    image: rabbitmq:3.9.16-alpine
+    hostname: "food_order_system-rmq"
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    healthcheck:
+      test: rabbitmq-diagnostics check_running -q
+      interval: 3s
+      timeout: 3s
+      retries: 50
+
+
+
+volumes:
+  food_order_system-db-data:
+    name: food_order_system-db-data
