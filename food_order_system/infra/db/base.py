@@ -1,6 +1,6 @@
 from sqlalchemy.orm import DeclarativeBase
 
-from food_order_system.db.meta import meta
+from food_order_system.infra.db.meta import meta
 
 
 class Base(DeclarativeBase):
