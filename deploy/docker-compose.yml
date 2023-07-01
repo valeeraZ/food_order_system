@@ -9,7 +9,7 @@ services:
     image: food_order_system:${FOOD_ORDER_SYSTEM_VERSION:-latest}
     restart: always
     env_file:
-    - .env
+    - ../.env
     depends_on:
       db:
         condition: service_healthy
@@ -39,6 +39,8 @@ services:
       interval: 2s
       timeout: 3s
       retries: 40
+    ports:
+    - 5432:5432
 
   rmq:
     image: rabbitmq:3.9.16-alpine
@@ -53,6 +55,9 @@ services:
       interval: 3s
       timeout: 3s
       retries: 50
+    ports:
+    - 5672:5672
+    - 15672:15672
 
 
 
