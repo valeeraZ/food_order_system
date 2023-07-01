@@ -3,7 +3,7 @@ from importlib import metadata
 from fastapi import FastAPI
 from fastapi.responses import UJSONResponse
 
-from food_order_system.web.api.router import api_router
+from food_order_system.web.api import api_router
 from food_order_system.web.lifetime import (
     register_shutdown_event,
     register_startup_event,

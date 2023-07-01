@@ -3,9 +3,9 @@ from typing import Awaitable, Callable
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from food_order_system.db.meta import meta
-from food_order_system.db.models import load_all_models
-from food_order_system.services.rabbit.lifetime import init_rabbit, shutdown_rabbit
+from food_order_system.infra.db.meta import meta
+from food_order_system.infra.db.model import load_all_models
+from food_order_system.infra.rabbit.lifetime import init_rabbit, shutdown_rabbit
 from food_order_system.settings import settings
 
 
