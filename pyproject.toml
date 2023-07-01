@@ -3,7 +3,7 @@ name = "food_order_system"
 version = "0.1.0"
 description = ""
 authors = [
-
+    "Wenzhuo Zhao <zslyvain@gmail.com>",
 ]
 maintainers = [
 
@@ -12,7 +12,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.89.1"
+fastapi = "0.99.0"
 uvicorn = { version = "^0.20.0", extras = ["standard"] }
 pydantic = {version = "^1.10.4", extras = ["dotenv"]}
 yarl = "^1.8.2"
@@ -21,6 +21,8 @@ SQLAlchemy = {version = "^2.0.0", extras = ["asyncio"]}
 asyncpg = {version = "^0.27.0", extras = ["sa"]}
 httptools = "^0.5.0"
 aio-pika = "^8.3.0"
+alembic = "^1.11.1"
+phonenumbers = "^8.13.15"
 
 
 [tool.poetry.dev-dependencies]
@@ -66,26 +68,6 @@ env = [
     "FOOD_ORDER_SYSTEM_DB_BASE=food_order_system_test",
 ]
 
-[fastapi-template.options]
-project_name = "food_order_system"
-api_type = "rest"
-enable_redis = "None"
-enable_rmq = "True"
-ci_type = "github"
-enable_migrations = "None"
-enable_taskiq = "None"
-enable_kube = "None"
-kube_name = "food-order-system"
-enable_routers = "None"
-enable_kafka = "None"
-enable_loguru = "None"
-traefik_labels = "None"
-add_dummy = "None"
-orm = "sqlalchemy"
-self_hosted_swagger = "None"
-prometheus_enabled = "None"
-sentry_enabled = "None"
-otlp_enabled = "None"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
