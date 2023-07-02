@@ -1,6 +1,6 @@
 # food_order_system
 
-This project was generated using fastapi_template.
+A food order system for customers and restaurants. Customers can order food to take away or to be delivered to their home. Restaurants can receive orders and prepare them for customers.
 
 ## Poetry
 
@@ -48,20 +48,39 @@ docker-compose -f deploy/docker-compose.yml --project-directory . build
 ```bash
 $ tree "food_order_system"
 food_order_system
-├── conftest.py  # Fixtures for all tests.
-├── db  # module contains db configurations
-│   ├── dao  # Data Access Objects. Contains different classes to interact with database.
-│   └── models  # Package contains different models for ORMs.
-├── __main__.py  # Startup script. Starts uvicorn.
-├── services  # Package for different external services such as rabbit or redis etc.
-├── settings.py  # Main configuration settings for project.
-├── static  # Static content.
-├── tests  # Tests for project.
-└── web  # Package contains web server. Handlers, startup config.
-    ├── api  # Package with all handlers.
-    │   └── router.py  # Main router.
-    ├── application.py  # FastAPI application configuration.
-    └── lifetime.py  # Contains actions to perform on startup and shutdown.
+├── domain # Domain layer with business logic
+│   ├── user
+├── infra
+│   ├── db
+│   │   ├── migrations # Contains all alembic migrations.
+│   │   ├── model  # Contains all sqlalchemy models.
+│   │   ├── repository # Contains repositories for all models using sqlalchemy.
+│   │   ├── __init__.py
+│   │   ├── dependencies.py # Contains functions for database session.
+│   │   ├── meta.py
+│   │   └── utils.py
+│   ├── rabbit
+│   │   ├── __init__.py
+│   │   ├── dependencies.py
+│   │   └── lifetime.py
+│   └── __init__.py
+├── tests
+│   ├── __init__.py
+│   └── test_food_order_system.py
+├── usecase # # Contains all use cases with Command Query Responsibility Segregation.
+│   ├── user
+│   └── __init__.py
+├── web
+│   ├── api
+│   │   ├── routes # Contains all FastAPI routes.
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── application.py # Contains FastAPI application start point.
+│   └── lifetime.py # Contains all dependencies for launching and stopping FastAPI application.
+├── __init__.py
+├── __main__.py # Contains entry point for running the application.
+├── conftest.py
+└── settings.py # Contains all settings for the application.
 ```
 
 ## Configuration
