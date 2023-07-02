@@ -23,7 +23,8 @@ services:
       FOOD_ORDER_SYSTEM_DB_PASS: food_order_system
       FOOD_ORDER_SYSTEM_DB_BASE: food_order_system
       FOOD_ORDER_SYSTEM_RABBIT_HOST: food_order_system-rmq
-
+    ports:
+    - 8000:8000
   db:
     image: postgres:13.8-bullseye
     hostname: food_order_system-db
