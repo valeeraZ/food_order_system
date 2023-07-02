@@ -55,18 +55,14 @@ food_order_system
 │   │   ├── migrations # Contains all alembic migrations.
 │   │   ├── model  # Contains all sqlalchemy models.
 │   │   ├── repository # Contains repositories for all models using sqlalchemy.
-│   │   ├── __init__.py
+│   │   ├── __init__.py # function load all models
 │   │   ├── dependencies.py # Contains functions for database session.
 │   │   ├── meta.py
 │   │   └── utils.py
 │   ├── rabbit
-│   │   ├── __init__.py
 │   │   ├── dependencies.py
 │   │   └── lifetime.py
-│   └── __init__.py
 ├── tests
-│   ├── __init__.py
-│   └── test_food_order_system.py
 ├── usecase # # Contains all use cases with Command Query Responsibility Segregation.
 │   ├── user
 │   └── __init__.py
@@ -79,7 +75,6 @@ food_order_system
 │   └── lifetime.py # Contains all dependencies for launching and stopping FastAPI application.
 ├── __init__.py
 ├── __main__.py # Contains entry point for running the application.
-├── conftest.py
 └── settings.py # Contains all settings for the application.
 ```
 
