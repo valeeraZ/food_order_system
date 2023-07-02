@@ -9,7 +9,7 @@ services:
     image: food_order_system:${FOOD_ORDER_SYSTEM_VERSION:-latest}
     restart: always
     env_file:
-    - ../.env
+    - .env
     depends_on:
       db:
         condition: service_healthy
