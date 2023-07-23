@@ -18,11 +18,11 @@ class UserDTO(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
-        default=datetime.now(),
+        default=datetime.now,
     )
     updated_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
-        default=datetime.now(),
-        onupdate=datetime.now(),
+        default=datetime.now,
+        onupdate=datetime.now,
     )
