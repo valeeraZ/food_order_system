@@ -4,7 +4,7 @@ from datetime import datetime
 
 from phonenumbers import parse
 
-from food_order_system.domain.user.user_exception import UserNotCreatedException
+from food_order_system.exception.base_exception import NotCreatedException
 
 
 @dataclass
@@ -20,9 +20,6 @@ class User:
 
     def authenticate_sending_sms(self) -> None:
         if parse(self.phone_number, None).country_code != 33:
-            raise UserNotCreatedException(
-                self.phone_number,
-                "Phone number is not French",
-            )
+            raise NotCreatedException("User", "Phone number must be French")
         # TODO: Send SMS to user to authenticate
         self.is_verified = True
