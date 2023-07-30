@@ -1,9 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
-from food_order_system.domain.user.user_exception import (
-    UserNotCreatedException,
-    UserNotFoundException,
-)
 from food_order_system.usecase.user.user_command_model import UserCreateModel
 from food_order_system.usecase.user.user_command_service import (
     UserCommand,
@@ -23,10 +19,7 @@ async def create_user(
     user_create_model: UserCreateModel,
     user_command_service: UserCommand = Depends(get_user_command_service),
 ):
-    try:
-        return await user_command_service.create_user(user_create_model)
-    except UserNotCreatedException as e:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
+    return await user_command_service.create_user(user_create_model)
 
 
 @router.get(
@@ -38,7 +31,4 @@ async def get_user(
     phone_number: str,
     user_query_service: UserQuery = Depends(get_user_query_service),
 ):
-    try:
-        return await user_query_service.find_user_by_phone_number(phone_number)
-    except UserNotFoundException as e:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
+    return await user_query_service.find_user_by_phone_number(phone_number)
