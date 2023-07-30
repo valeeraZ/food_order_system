@@ -1,12 +1,12 @@
 import dataclasses
 
 from fastapi import Depends
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from food_order_system.domain.user.user import User
-from food_order_system.infra.db.dependencies import get_db_session
-from food_order_system.infra.db.model.user_dto import UserDTO
-from food_order_system.infra.db.repository.user import UserRepository
+from food_order_system.infra.db.repository.user import (
+    UserRepository,
+    get_user_repository,
+)
 from food_order_system.usecase.user.user_command_model import UserCreateModel
 from food_order_system.usecase.user.user_query_model import UserReadModel
 
@@ -29,6 +29,6 @@ class UserCommand:
 
 
 def get_user_command_service(
-    session: AsyncSession = Depends(get_db_session),
+    user_repository: UserRepository = Depends(get_user_repository),
 ) -> UserCommand:
-    return UserCommand(UserRepository(UserDTO, session))
+    return UserCommand(user_repository)
