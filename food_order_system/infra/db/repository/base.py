@@ -51,6 +51,13 @@ class BaseRepository(Generic[T]):
         await self.session.commit()
         return obj_in
 
+    async def update_with_dict(self, obj_in: T, updated_data: dict[str, Any]) -> T:
+        for attr, value in updated_data.items():
+            if obj_in.__table__.columns.keys().__contains__(attr):
+                setattr(obj_in, attr, value)
+        await self.session.commit()
+        return obj_in
+
     async def delete(self, obj_in: T) -> None:
         await self.session.delete(obj_in)  # type: ignore
         await self.session.commit()
