@@ -39,6 +39,19 @@ async def create_food_category(
 
 
 @router.get(
+    "/",
+    response_model=list[FoodCategoryReadModel],
+    status_code=status.HTTP_200_OK,
+)
+async def get_food_categories(
+    food_category_query_service: FoodCategoryQuery = Depends(
+        get_food_category_query_service,
+    ),
+):
+    return await food_category_query_service.find_all_food_categories()
+
+
+@router.get(
     "/{name}",
     response_model=FoodCategoryReadModel,
     status_code=status.HTTP_200_OK,
