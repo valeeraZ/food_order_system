@@ -15,6 +15,12 @@ class FoodCategoryQuery:
     def __init__(self, food_category_repository: FoodCategoryRepository):
         self.food_category_repository = food_category_repository
 
+    async def find_all_food_categories(self) -> list[FoodCategoryReadModel]:
+        return [
+            FoodCategoryReadModel.from_orm(food_category_dto)
+            for food_category_dto in await self.food_category_repository.get_many()
+        ]
+
     async def find_food_category_by_name(self, name: str) -> FoodCategoryReadModel:
         if food_category_dto := await self.food_category_repository.get(name=name):
             return FoodCategoryReadModel.from_orm(food_category_dto)
